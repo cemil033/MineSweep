@@ -1,0 +1,105 @@
+﻿<Window x:Class="MineSweep.MainWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:local="clr-namespace:MineSweep"
+		xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
+		mc:Ignorable="d"
+		Title="MineSweeper" Height="760" Width="685" WindowStartupLocation="CenterScreen" KeyDown="Window_KeyDown">
+    <Window.Resources>
+        <local:MainWindowViewModel x:Key="mineSweeperModel"/>
+        <local:TotalSecondsConverter x:Key="totalSecondsConverter"/>
+        <Style x:Key="wonLostStyle" TargetType="FrameworkElement">
+            <Setter Property="Visibility" Value="Visible"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding MineField.IsWon}" Value="true">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding MineField.IsLost}" Value="true">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+
+    <Grid Background="{StaticResource backroundDarkBrush}" DataContext="{DynamicResource mineSweeperModel}">
+        <Grid.RowDefinitions>
+            <RowDefinition Name="row" Height="1*"/>
+            <RowDefinition Height="13*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <Button Click="RestartEasy">
+                    <Viewbox>
+                        <TextBlock Text="10x10" FontWeight="Bold"/>
+                    </Viewbox>
+                </Button>
+                <Button Click="RestartMedium">
+                    <Viewbox>
+                        <TextBlock Text="15x10" FontWeight="Bold" />
+                    </Viewbox>
+                </Button>
+                <Button Click="RestartHard">
+                    <Viewbox>
+                        <TextBlock Text="30x20" FontWeight="Bold"/>
+                    </Viewbox>
+                </Button>
+                <Button Click="RestartCustom">
+                    <Viewbox>
+                        <TextBlock Text="Custom" FontWeight="Bold"/>
+                    </Viewbox>
+                </Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Style="{StaticResource wonLostStyle}">
+                <Button Margin="0,0,6,0">
+                    <behaviors:Interaction.Triggers>
+                        <behaviors:EventTrigger EventName="Click">
+                            <behaviors:CallMethodAction TargetObject="{Binding}" MethodName="OpenEmptyCell"/>
+                        </behaviors:EventTrigger>
+                    </behaviors:Interaction.Triggers>
+                    <Viewbox>
+                        <TextBlock Text="?" FontWeight="Bold"/>
+                    </Viewbox>
+                </Button>
+                <Viewbox>
+                    <Path Margin="180" Fill="{StaticResource textBrush}" Stretch="Fill" Data="{StaticResource minePathData}"/>
+                </Viewbox>
+                <Viewbox>
+                    <TextBlock Foreground="{StaticResource textBrush}" Text="{Binding MineField.MinesToMark}" Margin="0,0,3,1" FontWeight="Bold"/>
+                </Viewbox>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Viewbox>
+                    <Path Margin="180" Fill="{StaticResource textBrush}" Stretch="Fill" Data="{StaticResource pocketWatchPathData}"/>
+                </Viewbox>
+                <Viewbox>
+                    <TextBlock Foreground="{StaticResource textBrush}" Text="{Binding TimePlayed, Converter={StaticResource totalSecondsConverter}}" Margin="0,0,3,1" FontWeight="Bold"/>
+                </Viewbox>
+            </StackPanel>
+        </Grid>
+
+        <local:MineField Grid.Row="1" DataContext="{Binding MineField}"/>
+
+        <Viewbox Grid.Row="1">
+            <TextBlock Name="won" Background="Purple" Foreground="DeepPink" TextWrapping="Wrap" TextAlignment="Center">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Visibility" Value="Hidden"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding MineField.IsWon}" Value="true">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+				<Bold>
+					YOU WON IN <Run Text="{Binding Path=TimePlayed, Converter={StaticResource totalSecondsConverter}, Mode=OneWay}"/> SECONDS!<LineBreak/>
+					YOU ARE SO AMAZING!!!
+				</Bold>
+            </TextBlock>
+        </Viewbox>
+    </Grid>
+</Window>

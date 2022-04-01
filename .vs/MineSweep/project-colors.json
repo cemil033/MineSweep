@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "cd235363-4fee-43f7-867d-3243bab61306": {
+      "ProjectGuid": "cd235363-4fee-43f7-867d-3243bab61306",
+      "DisplayName": "MineSweep",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

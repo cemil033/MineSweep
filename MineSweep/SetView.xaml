@@ -1,0 +1,38 @@
+﻿<Window x:Class="MineSweep.SetView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MineSweep"
+        mc:Ignorable="d"
+        Title="Set" Height="300" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel Background="WhiteSmoke"  Orientation="Horizontal" Grid.Row="0">
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="15" FontSize="16" Text="Rows" FontWeight="Bold"></TextBlock>
+                <TextBox MouseLeftButtonDown="MouseLeftButtonDown" BorderThickness="5" Name="rows" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="60,5,5,5" FontSize="21" Text="0" Width="160" HorizontalContentAlignment="Center"></TextBox>
+            </StackPanel>
+            <StackPanel Background="WhiteSmoke" Orientation="Horizontal" Grid.Row="1">
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="15" FontSize="16" Text="Columns" FontWeight="Bold"></TextBlock>
+                <TextBox MouseLeftButtonDown="MouseLeftButtonDown" BorderThickness="5" Name="colms" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="34,5,5,5" FontSize="21" Text="0" Width="160" HorizontalContentAlignment="Center"></TextBox>
+            </StackPanel>
+            <StackPanel Background="WhiteSmoke" Orientation="Horizontal" Grid.Row="2">
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="15" FontSize="16" Text="Mines" FontWeight="Bold"></TextBlock>
+                <TextBox MouseLeftButtonDown="MouseLeftButtonDown" BorderThickness="5" Name="mines" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="55,5,5,5" FontSize="21" Text="0" Width="160" HorizontalContentAlignment="Center"></TextBox>
+            </StackPanel>
+        </Grid>
+        <StackPanel Background="WhiteSmoke" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="1">
+            <Button Margin="5" x:Name="ok" Content="OK" Width="100" Click="ok_Click"></Button>
+            <Button Margin="5" x:Name="cnl" Content="Cancel" Width="100" Click="cnl_Click"></Button>
+        </StackPanel>
+    </Grid>
+</Window>
